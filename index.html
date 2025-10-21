@@ -1,150 +1,82 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Emovibe 情绪陪伴</title>
-  <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Emovibe | 情绪陪伴</title>
+  <style>
+    body {
+      font-family: "Microsoft YaHei", sans-serif;
+      background: #f2f6fc;
+      color: #333;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background: linear-gradient(120deg, #3f87a6, #ebf8e1);
+      color: #222;
+      padding: 20px;
+    }
+    h1 {
+      margin: 0;
+      font-size: 24px;
+    }
+    button {
+      background: #4a90e2;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 6px;
+      cursor: pointer;
+      margin: 10px;
+    }
+    button:hover {
+      background: #357abd;
+    }
+    textarea, input {
+      width: 80%;
+      margin: 10px auto;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 16px;
+    }
+    footer {
+      background: #eaeaea;
+      padding: 10px;
+      font-size: 14px;
+      color: #666;
+      margin-top: 20px;
+    }
+  </style>
 </head>
 <body>
   <header>
-    <h1>Emovibe 情绪陪伴</h1>
-    <p>一个倾听你心声的小世界 🌙</p>
+    <h1>🩵 Emovibe 聊天室</h1>
+    <p>💭 用心陪伴每一个情绪</p>
   </header>
 
   <main>
-    <button onclick="location.href='chat.html'">开始聊天</button>
-    <button onclick="location.href='treehole.html'">树洞留言</button>
+    <div>
+      <p>🧠 思考中...</p>
+      <input type="text" placeholder="说点什么..." />
+      <button>发送</button>
+    </div>
+
+    <div>
+      <h2>🌳 Emovibe 树洞</h2>
+      <textarea placeholder="写下你的秘密或心情..."></textarea>
+      <button>发布</button>
+    </div>
   </main>
 
   <footer>
-    <p>© 2025 Emovibe | 用心陪伴每一个情绪</p>
+    © 2025 Emovibe | 情绪陪伴平台
   </footer>
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>情绪聊天 - Emovibe</title>
-  <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-  <header>
-    <h2>Emovibe 聊天室</h2>
-  </header>
-
-  <main>
-    <div id="response">👋 你好，我是 Emovibe，你现在的心情怎么样？</div>
-    <input id="message" type="text" placeholder="输入你的心情..." />
-    <button onclick="sendMessage()">发送</button>
-  </main>
 
   <script>
-  async function sendMessage() {
-    const msg = document.getElementById('message').value.trim();
-    if (!msg) return;
-    document.getElementById('response').innerText = "🧠 思考中...";
-    const res = await fetch('/api', {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ msg })
-    });
-    const data = await res.json();
-    document.getElementById('response').innerText = data.reply || "出错了，请稍后再试 😢";
-  }
+    console.log("Emovibe 已加载 ✅");
   </script>
 </body>
 </html>
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>树洞 - Emovibe</title>
-  <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-  <header>
-    <h2>🌳 Emovibe 树洞</h2>
-  </header>
-
-  <main>
-    <textarea id="note" placeholder="写下你的秘密或心情..."></textarea>
-    <button onclick="saveNote()">发布</button>
-    <div id="list"></div>
-  </main>
-
-  <script>
-  function saveNote() {
-    const note = document.getElementById('note').value.trim();
-    if (!note) return;
-    const list = document.getElementById('list');
-    const p = document.createElement('p');
-    p.textContent = note;
-    list.prepend(p);
-    document.getElementById('note').value = '';
-  }
-  </script>
-</body>
-</html>
-body {
-  font-family: "Microsoft YaHei", sans-serif;
-  background: #f2f6fc;
-  color: #333;
-  text-align: center;
-  margin: 0;
-  padding: 0;
-}
-
-header {
-  background: linear-gradient(120deg, #3f87a6, #ebf8e1);
-  color: #222;
-  padding: 20px;
-}
-
-button {
-  background: #4a90e2;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 6px;
-  cursor: pointer;
-  margin: 10px;
-}
-
-button:hover {
-  background: #357ABD;
-}
-
-textarea, input {
-  width: 80%;
-  margin: 10px auto;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-}
-export default async function handler(req, res) {
-  try {
-    const body = await req.json();
-    const msg = body.msg;
-
-    const response = await fetch("https://api.openai.com/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${process.env.OPENAI_API_KEY}`,
-      },
-      body: JSON.stringify({
-        model: "gpt-4o-mini",
-        messages: [{ role: "user", content: msg }],
-      }),
-    });
-
-    const data = await response.json();
-    res.status(200).json({ reply: data.choices[0].message.content });
-  } catch (e) {
-    res.status(500).json({ error: "服务器错误，请稍后再试" });
-  }
-}
