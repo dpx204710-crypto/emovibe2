@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Emovibe 聊天树洞</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body {
+      font-family: "Microsoft YaHei", sans-serif;
+      background: #f7faff;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+    }
+
+    header {
+      background-color: #4b9cd3;
+      color: white;
+      text-align: center;
+      padding: 15px;
+    }
+
+    .chat-box {
+      flex: 1;
+      overflow-y: auto;
+      padding: 15px;
+    }
+
+    .message {
+      background: white;
+      border-radius: 10px;
+      margin-bottom: 10px;
+      padding: 10px;
+      max-width: 80%;
+    }
+
+    .user {
+      background-color: #d2ecff;
+      align-self: flex-end;
+    }
+
+    footer {
+      display: flex;
+      padding: 10px;
+      background-color: #fff;
+      border-top: 1px solid #ccc;
+    }
+
+    input[type="text"] {
+      flex: 1;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      margin-right: 10px;
+    }
+
+    button {
+      background-color: #4b9cd3;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      padding: 10px 15px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #357aa8;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🌙 Emovibe 聊天树洞</h1>
+  </header>
+
+  <div class="chat-box" id="chat-box">
+    <div class="message">你好呀，这是一个可以倾诉心声的地方 💬</div>
+  </div>
+
+  <footer>
+    <input type="text" id="userInput" placeholder="说点什么吧…" />
+    <button onclick="sendMessage()">发送</button>
+  </footer>
+
+  <script>
+    function sendMessage() {
+      const input = document.getElementById("userInput");
+      const chatBox = document.getElementById("chat-box");
+
+      if (input.value.trim() === "") return;
+
+      const msg = document.createElement("div");
+      msg.className = "message user";
+      msg.innerText = input.value;
+      chatBox.appendChild(msg);
+
+      input.value = "";
+      chatBox.scrollTop = chatBox.scrollHeight;
+    }
+  </script>
+</body>
+</html>
